@@ -1,0 +1,24 @@
+# --- Core scientific stack ---
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+xgboost
+lightgbm
+joblib
+
+# --- Jupyter environment ---
+jupyter
+ipykernel
+
+# --- Deployment ---
+fastapi
+uvicorn
+gradio
+pydantic
+
+# --- Utils ---
+colorama
+tqdm
+requests

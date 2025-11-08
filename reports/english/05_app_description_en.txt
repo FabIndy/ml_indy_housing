@@ -1,0 +1,78 @@
+# Step 5 — Application Overview: Indy House Price Predictor
+
+This report introduces the **public web application** developed as part of the **ML Indy Housing** project.
+It allows users to **estimate the selling price of a house** in the Indianapolis area using a model deployed on **Hugging Face Spaces**.
+
+**Live demo:** https://huggingface.co/spaces/FabIndy/house-price-ui
+
+## 1. Purpose of the Application
+
+The application provides an **interactive interface** where users can enter the main characteristics of a property to instantly obtain a **predicted price in USD**.
+It is powered by the **final XGBoost model** trained during this project (`19-XGBoost-pseudohuber-fineweighting.ipynb`), which achieved a **mean absolute error (MAE) of $45,195** for standard houses and a **relative error rate of 12.8%** — demonstrating strong reliability for the vast majority of the market (< $1M).
+
+## 2. ZIP Codes Covered
+
+Predictions are available **only for the ZIP codes included in the trained dataset**.
+These ZIP codes correspond to the main residential areas of Indianapolis and its suburbs:
+
+ 46201. 46202. 46203. 46204. 46205. 46208. 46214. 46216. 46217.
+ 46218. 46219. 46220. 46221. 46222. 46224. 46225. 46226. 46227. 46228.
+ 46229. 46231. 46234. 46235. 46236. 46237. 46239. 46240. 46241. 46250.
+ 46254. 46256. 46259. 46260. 46268. 46278. 46280. 46290. 46032. 46033.
+ 46074. 46037. 46038. 46077. 46112. 46123. 46168. 46142. 46143. 46060.
+ 46062. 46075. 46055. 46107.
+
+If a user enters a ZIP code outside this list, the model may not produce a valid or reliable prediction.
+
+## 3. Inputs Required
+
+The app collects the following features before sending them to the backend API (`/predict` endpoint):
+
+| Field                  | Description                           | Example |
+|:-----------------------|:--------------------------------------|:--------|
+| **Bedrooms**           | Number of bedrooms                    | 3       |
+| **Bathrooms**          | Number of bathrooms                   | 2       |
+| **Latitude**           | Geographic coordinate (°)             | 39.90   |
+| **Longitude**          | Geographic coordinate (°)             | -86.15  |
+| **Living Area (sqft)** | Total interior surface in square feet | 2,000   |
+| **House Age (years)**  | Age of the house                      | 10      |
+| **Zipcode**            | 5-digit ZIP code (see list above)     | 46220   |
+
+**Note:**
+Latitude and longitude can be easily retrieved from the property’s address using **Google Maps** (right-click → *What’s here?*).
+These coordinates are crucial because the model uses them to **calculate the distance from downtown Indianapolis**, a key feature influencing housing prices.
+
+## 4. System Architecture
+
+The prediction pipeline relies on three components deployed on Hugging Face:
+
+1. **Model container** – hosts the trained XGBoost model.
+2. **FastAPI backend** – receives JSON input and returns predictions via REST API.
+3. **Gradio frontend** – provides the interactive user interface accessible online.
+
+Communication between containers follows this structure:
+
+[Gradio UI] ⇄ [FastAPI Backend] ⇄ [XGBoost Model]
+
+Each request entered through the interface is sent to the API, which calls the model and returns the estimated price.
+
+## 5. Model Reliability
+
+The deployed model demonstrates:
+- **High accuracy** on standard houses (< $1M): MAE = $45,195 → relative error = **12.8%**.
+- **Acceptable stability** on luxury houses (≥ $1M): MAE = $531,241 → relative error = 29.6%.
+
+This makes it a **robust and interpretable estimator** for real estate properties in the Indianapolis metropolitan area.
+
+## 6. Conclusion
+
+The **Indy House Price Predictor** combines an advanced machine learning model with a simple and accessible web interface.
+
+It demonstrates how **data science, geolocation, and API deployment** can be integrated to deliver **real-time, localized price predictions**.
+
+It is not just a technical demonstration — it is a **practical decision-support tool**.
+
+It enables **real estate professionals** to obtain a quick and consistent first valuation of a property,  
+and allows **homeowners or buyers** to easily understand the market value of a house.
+
+Reliable, transparent, and accessible, it highlights the real-world potential of data science applied to real estate.

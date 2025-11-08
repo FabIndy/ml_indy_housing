@@ -1,0 +1,47 @@
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+*.joblib
+*.log
+*.DS_Store
+
+# --- Environnements / dépendances ---
+.env
+.venv/
+env/
+venv/
+*.yaml~
+*.yml~
+
+# --- Notebooks checkpoints ---
+.ipynb_checkpoints/
+
+# --- Données volumineuses (mais PAS ton petit CSV utile) ---
+data/
+dataset/raw/
+*.zip
+*.gz
+
+# --- Modèles / résultats volumineux ---
+models/
+*.h5
+*.keras
+*.pt
+*.onnx
+*.pickle
+
+# --- Déploiement ---
+deployment/__pycache__/
+deployment/*.log
+
+# --- Rapports temporaires ---
+reports/tmp/
+reports/*.html
+
+# --- OS / IDE ---
+.vscode/
+.idea/
+Thumbs.db
