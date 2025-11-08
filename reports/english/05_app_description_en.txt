@@ -12,17 +12,17 @@ It is powered by the **final XGBoost model** trained during this project (`19-XG
 
 ## 2. ZIP Codes Covered
 
-Predictions are available **only for the ZIP codes included in the trained dataset**.
-These ZIP codes correspond to the main residential areas of Indianapolis and its suburbs:
+The model was trained exclusively on **residential areas of Indianapolis and its surroundings**:
 
- 46201. 46202. 46203. 46204. 46205. 46208. 46214. 46216. 46217.
- 46218. 46219. 46220. 46221. 46222. 46224. 46225. 46226. 46227. 46228.
- 46229. 46231. 46234. 46235. 46236. 46237. 46239. 46240. 46241. 46250.
- 46254. 46256. 46259. 46260. 46268. 46278. 46280. 46290. 46032. 46033.
- 46074. 46037. 46038. 46077. 46112. 46123. 46168. 46142. 46143. 46060.
- 46062. 46075. 46055. 46107.
+46201, 46202, 46203, 46204, 46205, 46208, 46214, 46216, 46217,  
+46218, 46219, 46220, 46221, 46222, 46224, 46225, 46226, 46227, 46228,  
+46229, 46231, 46234, 46235, 46236, 46237, 46239, 46240, 46241, 46250,  
+46254, 46256, 46259, 46260, 46268, 46278, 46280, 46290, 46032, 46033,  
+46074, 46037, 46038, 46077, 46112, 46123, 46168, 46142, 46143, 46060,  
+46062, 46075, 46055, 46107.
 
-If a user enters a ZIP code outside this list, the model may not produce a valid or reliable prediction.
+Predictions made outside this list may be less reliable.
+
 
 ## 3. Inputs Required
 
