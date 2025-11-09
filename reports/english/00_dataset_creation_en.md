@@ -1,46 +1,35 @@
-Step 0 — Dataset Creation – ML Indy Housing Project
-Objective
+# Step 0 : Dataset Creation – ML Indy Housing Project
 
-As part of the ML Indy Housing project, I built my own real estate database entirely from scratch —
-without relying on any pre-existing public dataset.
-The goal was to create a localized and homogeneous dataset focused on the Indianapolis metropolitan area,
-in order to model residential house sale prices.
+**Objective :**
 
-Methodology
+As part of the ML Indy Housing project, I built my own real estate database from scratch, without using any pre-existing public dataset.
+The goal was to create a localized and homogeneous dataset focused on the Indianapolis region, in order to model house sale prices.
 
-I developed a Python script (step3_targeted_zip_harvest.py) to automate real estate data collection by ZIP code,
-using APIs available on RapidAPI, including the Zillow API.
-For each targeted ZIP area, the script performs:
+**Methodology :**
 
-Successive requests to the endpoints /propertyExtendedSearch, /property, and /building.
+I developed a Python script (**step3_targeted_zip_harvest.py**) to automate the collection of real estate data by ZIP code using APIs available on RapidAPI, including the Zillow API.
+For each targeted area, the script performs:
 
-Progressive enrichment of missing fields (e.g., year built, lot area, geographic coordinates).
+- Successive requests to the endpoints /propertyExtendedSearch, /property, and /building
+- Progressive enrichment of missing fields (year built, lot area, geographic coordinates, etc.)
+- Completeness verification and duplicate filtering before saving
 
-Completeness verification and duplicate filtering before saving.
+The process aims to collect at least 200 properties per ZIP code, covering the main residential areas of Indianapolis and its surroundings (Zionsville, Carmel, Fishers, Greenwood, etc.).
 
-The process aimed to gather at least 200 properties per ZIP code, covering the main residential areas of
-Indianapolis and its surroundings (Zionsville, Carmel, Fishers, Greenwood, etc.).
+**Security and Configuration :**
 
-Security and Configuration
+Sensitive parameters (API key, RapidAPI host) are stored in a non-versioned `.env` file to ensure credential security.
+The script is compatible with a PRO plan (2 requests/s) and integrates a retry mechanism with exponential backoff to avoid quota overruns or network errors.
 
-Sensitive parameters (API key, RapidAPI host) are stored in a non-versioned .env file
-to protect API credentials.
-The script is compatible with a PRO plan (2 requests/second) and includes a retry + exponential backoff mechanism
-to prevent quota overruns or network failures.
+**Result :**
 
-Result
-
-The final dataset, zillow_indy_10k_enriched.csv, contains several thousand cleaned and harmonized records,
-with the main explanatory variables required for modeling:
+The final file, `zillow_indy_10k_enriched.csv`, contains several thousand cleaned and harmonized records, with the main explanatory variables needed for modeling:
 
 sale_price, bedrooms, bathrooms, living_area,
 year_built, lot_area_sqft, zipcode, lat, lon.
 
-This dataset served as the foundation for the subsequent stages of feature engineering,
-modeling (RF, XGBoost, LightGBM), and price prediction performance evaluation.
+This dataset then served as the basis for the feature engineering, modeling (RF, XGBoost, LightGBM), and performance evaluation stages of the price prediction model.
 
-Conclusion
+**Conclusion :**
 
-This work demonstrates my ability to design a complete dataset from APIs,
-ensuring data quality, consistency, and traceability —
-core skills for any applied data science project based on real-world data.
+This approach demonstrates my ability to design a complete dataset from APIs while ensuring data quality, consistency, and traceability — essential skills for any data science project applied to real-world data.
