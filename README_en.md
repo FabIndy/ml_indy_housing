@@ -83,6 +83,48 @@ Predictions made outside this list may be less reliable.
 > These coordinates are used to compute the **distance from downtown Indianapolis**, a key feature in the model.
 
 ---
+## Model Interpretability (SHAP)
+
+A full interpretability study was conducted in the notebook  
+**`21_SHAP_interpretability_model19.ipynb`**, which analyzes the internal behavior of the final XGBoost model using SHAP values.
+
+### Global Insights (SHAP Summary & Feature Importance)
+
+The global SHAP analysis reveals a clear and meaningful hierarchy of feature importance:
+
+- **`bedrooms`** is by far the most influential feature.  
+  The number of bedrooms has the strongest impact on the predicted log-price, and its dominance suggests that, in this dataset, price variations are strongly structured around home configuration (3BR, 4BR, 5BR, etc.).
+
+- **`log_living_area`** comes next, reflecting the expected relationship between larger living space and higher market value.
+
+- **`bathrooms`** also contributes positively and consistently to price increases.
+
+- Geographic variables (**latitude**, **longitude**) and **distance to downtown** capture strong spatial effects within the Indianapolis housing market:
+  - closer to downtown → upward pull on price,  
+  - farther away → downward pressure.
+
+- Several **ZIP codes** show substantial positive or negative contributions, highlighting well-known neighborhood disparities and confirming the model’s ability to capture local market structure.
+
+This hierarchy is fully consistent with the SHAP barplot (Mean |SHAP|), and the dependence plots reveal meaningful nonlinearities and interactions between size and location.
+
+### Local Interpretations (Waterfall Plots)
+
+For individual homes from the test set, SHAP waterfall plots break down the prediction into positive and negative contributions relative to the dataset mean.  
+These local explanations confirm that the model behaves consistently on unseen data and explain, feature by feature, why a particular property is predicted to be more or less expensive.
+
+### Conclusion
+
+The SHAP analysis provides strong evidence that the model’s predictions are:
+- **interpretable**,  
+- **economically coherent**,  
+- **aligned with real market drivers**,  
+- and **reliable for individual-level explanations**.
+
+Overall, the model captures the key determinants of housing prices in Indianapolis, with a very strong emphasis on home configuration (notably the number of bedrooms), followed by living area, bathrooms, and spatial location.
+
+
+
+---
 
 ## Technologies Used
 

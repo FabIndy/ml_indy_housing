@@ -87,6 +87,51 @@ Les prédictions effectuées en dehors de cette liste peuvent être moins fiable
 
 ---
 
+## Analyse d’interprétabilité du modèle (SHAP)
+
+Une analyse complète de l’interprétabilité a été réalisée dans le notebook  
+**`21_SHAP_interpretability_model19.ipynb`**, qui explore le fonctionnement interne du modèle XGBoost à l’aide des valeurs SHAP.
+
+### Analyse globale (SHAP Summary & Importance des variables)
+
+L’analyse SHAP met en évidence une hiérarchie d’importance très claire et cohérente :
+
+- **`bedrooms`** est de loin la variable la plus déterminante.  
+  Le nombre de chambres exerce l’influence la plus forte sur le prix prédit.  
+  Dans ce dataset, la structure du logement (3BR, 4BR, 5BR…) apparaît comme un facteur majeur de segmentation des prix.
+
+- **`log_living_area`** arrive en second, traduisant la relation attendue entre la surface habitable et la valeur du bien.
+
+- **`bathrooms`** contribue également de manière significative et régulière à l’augmentation du prix.
+
+- Les variables géographiques (**latitude**, **longitude**) ainsi que la **distance au centre-ville** capturent des effets spatiaux marqués :
+  - proximité du downtown → prix plus élevés,  
+  - éloignement → pression à la baisse.
+
+- Plusieurs **ZIP codes** produisent des contributions positives ou négatives nettes, reflétant l’hétérogénéité des quartiers d’Indianapolis et confirmant la capacité du modèle à saisir la structure locale du marché.
+
+Cette hiérarchie est pleinement cohérente avec le barplot SHAP (Mean |SHAP|).  
+Les dépendances SHAP révèlent par ailleurs des relations non linéaires significatives et des interactions entre surface et localisation.
+
+### Analyse locale (Waterfall Plots)
+
+Pour certaines maisons du jeu de test, les graphiques waterfall décomposent précisément chaque prédiction en contributions positives ou négatives par rapport à la valeur moyenne du dataset.  
+Ces explications locales démontrent que le modèle reste cohérent, lisible et fiable sur des données jamais vues.
+
+### Conclusion
+
+L’analyse SHAP montre que les prédictions du modèle sont :
+- **interprétables**,  
+- **économiquement cohérentes**,  
+- **alignées avec les véritables déterminants du marché**,  
+- et **fiables au niveau individuel**.
+
+Le modèle restitue efficacement les facteurs clés du prix des maisons à Indianapolis, avec un poids particulièrement marqué pour la configuration du logement (notamment le nombre de chambres), suivi de la surface, des salles de bain et de la localisation.
+
+
+
+---
+
 ## Technologies utilisées
 
 - **Python 3.10**  
